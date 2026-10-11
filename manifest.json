@@ -1,0 +1,12 @@
+{
+  "name": "Solicitação de Trabalho em Altura",
+  "short_name": "Trabalho em Altura",
+  "description": "Gerador de solicitação de autorização para trabalho em altura.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#101713",
+  "theme_color": "#14532d",
+  "orientation": "portrait",
+  "icons": []
+}
