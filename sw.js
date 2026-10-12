@@ -1,10 +1,12 @@
-const CACHE_NAME = "solicitacao-altura-v3";
+const CACHE_NAME = "solicitacao-altura-v5";
 const FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
-  "./manifest.json"
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 self.addEventListener("install", event => {

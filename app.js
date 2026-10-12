@@ -412,3 +412,30 @@ if ("serviceWorker" in navigator) {
     // O projeto continua funcionando normalmente sem service worker.
   });
 }
+
+// Instalação da PWA: o botão aparece quando o navegador oferece a instalação.
+let eventoInstalacaoPWA = null;
+const botaoInstalarApp = document.getElementById("installApp");
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  eventoInstalacaoPWA = event;
+  if (botaoInstalarApp) botaoInstalarApp.hidden = false;
+});
+
+if (botaoInstalarApp) {
+  botaoInstalarApp.addEventListener("click", async () => {
+    if (!eventoInstalacaoPWA) {
+      alert("Para instalar: abra esta aplicação no Chrome ou Edge, toque no menu do navegador e escolha 'Instalar aplicativo' ou 'Adicionar à tela inicial'. A instalação requer que o site esteja publicado em HTTPS (ou rodando em localhost). ");
+      return;
+    }
+    eventoInstalacaoPWA.prompt();
+    await eventoInstalacaoPWA.userChoice;
+    eventoInstalacaoPWA = null;
+    botaoInstalarApp.hidden = true;
+  });
+}
+
+window.addEventListener("appinstalled", () => {
+  if (botaoInstalarApp) botaoInstalarApp.hidden = true;
+});

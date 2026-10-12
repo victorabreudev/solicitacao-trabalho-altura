@@ -101,9 +101,31 @@ h1 {
 }
 
 .header-icon {
-  font-size: 2.1rem;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
   flex: 0 0 auto;
+  border-radius: 12px;
 }
+
+.install-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 12px;
+  color: #fff;
+  background: #087443;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.install-button[hidden] { display: none; }
 
 .theme-toggle {
   display: inline-flex;
