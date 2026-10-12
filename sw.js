@@ -1,4 +1,4 @@
-const CACHE_NAME = "solicitacao-altura-v5";
+const CACHE_NAME = "solicitacao-altura-v6";
 const FILES = [
   "./",
   "./index.html",

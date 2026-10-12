@@ -413,7 +413,8 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-// Instalação da PWA: o botão aparece quando o navegador oferece a instalação.
+// Instalação da PWA: o botão permanece visível e explica como instalar
+// mesmo quando o navegador não dispara beforeinstallprompt.
 let eventoInstalacaoPWA = null;
 const botaoInstalarApp = document.getElementById("installApp");
 
@@ -423,16 +424,30 @@ window.addEventListener("beforeinstallprompt", event => {
   if (botaoInstalarApp) botaoInstalarApp.hidden = false;
 });
 
+function instrucoesInstalacao() {
+  if (!window.isSecureContext && location.hostname !== "localhost") {
+    alert("Para instalar o aplicativo, publique os arquivos em um endereço HTTPS e abra esse endereço no navegador. Abrir o arquivo HTML diretamente (file://) não permite instalar uma PWA.");
+    return;
+  }
+  const ua = navigator.userAgent || "";
+  if (/android/i.test(ua)) {
+    alert("Para instalar: abra o menu ⋮ do Chrome e escolha 'Instalar app' ou 'Adicionar à tela inicial'. Se a opção não aparecer, confira se o site está em HTTPS e se todos os arquivos do projeto foram publicados na mesma pasta.");
+  } else if (/iphone|ipad|ipod/i.test(ua)) {
+    alert("No iPhone/iPad: abra esta página no Safari, toque em Compartilhar e escolha 'Adicionar à Tela de Início'. A instalação precisa ser feita a partir do endereço publicado.");
+  } else {
+    alert("Para instalar: abra o menu do Chrome ou Edge e procure 'Instalar Trabalho em Altura' ou 'Instalar aplicativo'. O site precisa estar publicado em HTTPS (ou rodando em localhost), com manifest.json, ícones e sw.js acessíveis.");
+  }
+}
+
 if (botaoInstalarApp) {
   botaoInstalarApp.addEventListener("click", async () => {
     if (!eventoInstalacaoPWA) {
-      alert("Para instalar: abra esta aplicação no Chrome ou Edge, toque no menu do navegador e escolha 'Instalar aplicativo' ou 'Adicionar à tela inicial'. A instalação requer que o site esteja publicado em HTTPS (ou rodando em localhost). ");
+      instrucoesInstalacao();
       return;
     }
     eventoInstalacaoPWA.prompt();
     await eventoInstalacaoPWA.userChoice;
     eventoInstalacaoPWA = null;
-    botaoInstalarApp.hidden = true;
   });
 }
 
